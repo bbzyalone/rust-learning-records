@@ -9,3 +9,4 @@ edition = "2021"
 mysql = "24.0.0" 
 chrono = "0.4"
 movies_lib = { path ="movies_lib"}
+Avariable = { path = "Avariable"}

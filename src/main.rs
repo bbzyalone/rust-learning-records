@@ -1,8 +1,13 @@
 use chrono::prelude::*;
 use mysql::prelude::*;
 use mysql::*;
+
 extern crate movies_lib;
+extern crate Avariable;
+
 use movies_lib::movies::play;
+use Avariable::{get_address, get_name,user_info,user_name};
+use Avariable::book::book::{book_info, book_numb};
 
 fn main() {
     println!("Hello, world!");
@@ -27,10 +32,15 @@ fn main() {
 
 
     play("简单教程".to_string());
-
+    user_info();
+    user_name();
+    get_address();
+    get_name();
+    book_info();
+    book_numb();
 }
 
-struct UrlMap{
+struct UrlMap {
     id: i32,
     surl: String,
     lurl: String,
