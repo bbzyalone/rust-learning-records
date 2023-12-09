@@ -1,0 +1,78 @@
+version: '3'
+services:
+  mysql1:                                            #mysql服务节点
+    image: mysql:5.7.44                                #mysql镜像，如果镜像容器没有会去自动拉取
+    container_name: mysql_5.7.44                      #容器的名称
+    command:                                        #构建容器后所执行的命令
+      --character-set-server=utf8mb4
+      --collation-server=utf8mb4_unicode_ci
+      --lower-case-table-names=1    #忽略数据表明大小写 
+    restart: always                                 #跟随docker的启动而启动
+    environment:
+      MYSQL_ROOT_PASSWORD: wkqdmm                     #设置root帐号密码
+    ports:
+      - 3306:3306
+    volumes:
+      - ./mysqldata/mysql5.7/data:/var/lib/mysql           #数据文件挂载
+      - ./mysqldata/mysql5.7/conf.d:/etc/mysql/conf.d      #配置文件挂载
+      - ./mysqldata/mysql5.7/log:/var/log/mysql            #日志文件挂载
+  mysql2:                                            #mysql服务节点
+    image: mysql:8.0                          #mysql镜像，如果镜像容器没有会去自动拉取
+    container_name: mysql_8.0                    #容器的名称
+    command:                                        #构建容器后所执行的命令
+      --character-set-server=utf8mb4
+      --collation-server=utf8mb4_unicode_ci
+      --lower-case-table-names=1    #忽略数据表明大小写 
+    restart: always                                 #跟随docker的启动而启动
+    environment:
+      MYSQL_ROOT_PASSWORD: wkqdmm                     #设置root帐号密码
+    ports:
+      - 3307:3306
+    volumes:
+      - ./mysqldata/mysql8.0/data:/var/lib/mysql           #数据文件挂载
+      - ./mysqldata/mysql8.0/conf.d:/etc/mysql/conf.d      #配置文件挂载
+      - ./mysqldata/mysql8.0/log:/var/log/mysql            #日志文件挂载
+  redis1:
+    image: redis:6.0
+    container_name:  redis_6.0
+    command:
+      #--save 60 1
+    	 #--loglevel warning		#此策略将每60秒保存一次数据库的快照（这也会导致更多的日志，因此可能需要使用 loglevel 选项
+    restart: always
+    ports:
+      - 6379:6379
+    volumes:
+      - ./redis6.0/data:/data
+      - ./redis6.0/conf:/usr/local/etc/redis
+      - ./redis6.0/log:/var/log/redis
+  redis2:
+    image: redis:7.2
+    container_name:  redis_7.2
+    restart: always
+    ports:
+      - 6380:6379
+    volumes:
+      - ./redis7.2/data:/data
+      - ./redis7.2/conf:/usr/local/etc/redis
+      - ./redis7.2/log:/var/log/redis     
+  rabbitmq1:
+    image: rabbitmq:3.13.0-rc.2-management
+    container_name:  rabbitmq_3.13
+    restart: always
+    ports:
+      - 15672:15672
+      - 5672:5672
+    volumes:
+      - ./rabbitmq:/var/lib/rabbitmq
+  postgres:
+    image: postgres:16.1
+    container_name:  postgres_16.1
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: wkqdmm
+      PGDATA: /var/lib/postgresql/data/pgdata
+    ports:
+      - 5432:5432  
+    volumes:
+      - ./postgres/data:/var/lib/postgresql/data
+      
