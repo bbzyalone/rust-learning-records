@@ -17,7 +17,7 @@ pub mod user;
 pub mod book;
 mod address;
 mod name;
-
+mod multip;
 
 pub fn user_info() {
     println!("我是userInfo")

@@ -6,7 +6,8 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-mysql = "24.0.0" 
-chrono = "0.4"
+rocket = { version = "0.5.0", features = ["json"] }
+rocket_dyn_templates = { version = "0.1.0", features = ["tera"] }
 movies_lib = { path ="movies_lib"}
 Avariable = { path = "Avariable"}
+http_server = {path = "http_server"}
